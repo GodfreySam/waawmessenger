@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 
 const Message = require("./models/Message");
@@ -52,6 +51,7 @@ app.post("/message/create-message", (req, res, next) => {
 
 });
 
-// heroku repo link: https://git.heroku.com/waawmessenger.git
+
+const port = process.env.PORT || 5000;
 
 app.listen(port, ()=> console.log(`server running on port:: ${port}`));
