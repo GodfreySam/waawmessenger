@@ -47,12 +47,13 @@
 		<!-- !End of Navbar -->
 
 		<div class="col-md-8 offset-md-2 msg-form">
-			<form class="mt-5">
+			<form class="mt-5" method="POST" action="/message/create-message">
 				<div class="form-group">
 					<label for="anonymousMessage">Anonymous Message</label>
 					<textarea
 						class="form-control"
 						id="anonymousMessage"
+						name="message"
 						rows="4"
 						placeholder="Type your message..."
 					></textarea>
@@ -65,47 +66,25 @@
 		<!-- !End of create message form -->
 
 		<div class="message-holder mt-5">
+			<% messages.forEach(data => { %>
+
 			<div class="card my-2">
 				<div class="card-header">Anonymous</div>
 				<div class="card-body">
 					<blockquote class="blockquote mb-0">
-						<p>A well-known quote, contained in a blockquote element.</p>
+						<p>
+							<%- data.message %>
+						</p>
 						<footer class="blockquote-footer">
-                     <small>
-                       - Created: <cite>2 minutes ago</cite>
-                     </small>
+							<small> Created: <cite title="Source Title">
+								<%- moment(data.createdAt).fromNow() %>
+							</cite> </small>
 						</footer>
 					</blockquote>
 				</div>
 			</div>
 
-         <div class="card my-2">
-				<div class="card-header">Anonymous</div>
-				<div class="card-body">
-					<blockquote class="blockquote mb-0">
-						<p>A well-known quote, contained in a blockquote element.</p>
-						<footer class="blockquote-footer">
-                     <small>
-                       - Created: <cite>2 minutes ago</cite>
-                     </small>
-						</footer>
-					</blockquote>
-				</div>
-			</div>
-
-         <div class="card my-2">
-				<div class="card-header">Anonymous</div>
-				<div class="card-body">
-					<blockquote class="blockquote mb-0">
-						<p>A well-known quote, contained in a blockquote element.</p>
-						<footer class="blockquote-footer">
-                     <small>
-                       - Created: <cite>2 minutes ago</cite>
-                     </small>
-						</footer>
-					</blockquote>
-				</div>
-			</div>
+			<% }) %>
 		</div>
 
 		<script
