@@ -1,9 +1,10 @@
 //  Models
 const Message = require('../models/Message');
-
 const express = require('express');
 const router = express.Router();
 
+// Router /message/create-message
+// handles message form data submission
 router.post('/create-message', async (req, res, next) => {
 	let { message } = req.body;
 	
@@ -19,7 +20,7 @@ router.post('/create-message', async (req, res, next) => {
 	await newMessage
 		.save()
 		.then((data) => {
-			console.log('Message created successfully', data);
+			console.log('Message created successfully');
 
 			req.flash('success-message', 'Message created successfully');
 			res.redirect('/');
@@ -33,6 +34,8 @@ router.post('/create-message', async (req, res, next) => {
 });
 
 //  Delete Messages
+// Router /message/delete-message
+// handles message deletion using messageId in req.params
 router.get('/delete-message/:messageId', async (req, res, next) => {
 	try {
 		const { messageId } = req.params;

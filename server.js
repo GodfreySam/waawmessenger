@@ -7,15 +7,16 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const logger = require('morgan');
-const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const connectDB = require('./configs/db.config');
+// const { isLoggedIn } = require('./middlewares/authorizations');
 
 // Controllers
-const indexController = require('./controllers/index.controller');
+// const indexController = require('./controllers/index.controller');
 const userController = require('./controllers/user.controller');
 const messageController = require('./controllers/message.controller');
+const campaignController = require('./controllers/campaign.controller');
 
 //  Load environment configs
 dotenv.config({ path: "./configs/config.env" });
@@ -24,7 +25,7 @@ dotenv.config({ path: "./configs/config.env" });
 require('./configs/passport.config')(passport);
 
 // Middleware
-const auth = require('./middlewares/auth');
+const auth = require('./middlewares/authorizations');
 
 //  Models
 const Message = require('./models/Message');
@@ -57,14 +58,15 @@ app.use(
 	}),
 );
 
-// Passport
+// Initialize Passport and it session wares
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Log messages
+// Log app and router activities to the terminal
+// for dev and debugging purpose
 app.use(logger('dev'));
 
-// Use Flash
+// Initialize Flash for flash messages
 app.use(flash());
 
 // Use Global Variables
@@ -75,10 +77,14 @@ app.locals.moment = require('moment');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// assign port to a variable
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`server running on port:: ${port}`));
+// listen for server connections
+app.listen(port, () => console.log(`server running on port:: http://localhost:${port}`));
 
-app.use('/', indexController);
+// Expose the routes using the controllers and router entry
+// app.use('/', indexController);
 app.use('/user', userController);
 app.use('/message', messageController);
+app.use('/campaign', campaignController);

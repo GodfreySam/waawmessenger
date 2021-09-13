@@ -1,16 +1,17 @@
-const Message = require('../models/Message');
+// const Message = require('../models/Message');
 
-const express = require('express');
-const router = express.Router();
+// const express = require('express');
+// const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-	try {
-		let allmessages = await Message.find({}).sort({ _id: -1 });
+// router.get('/', async (req, res, next) => {
+// 	try {
+// 		// let allmessages = await Message.find({}).sort({ _id: -1 });
 
-		res.render('index', { messages: allmessages });
-	} catch (err) {
-		console.log(err);
-	}
-});
+// 		res.redirect('/user/login');
 
-module.exports = router;
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// });
+
+// module.exports = router;

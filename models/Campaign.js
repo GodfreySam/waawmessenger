@@ -4,6 +4,12 @@ const { Schema } = mongoose;
 
 const campaignSchema = new Schema(
 	{
+		title: {
+			type: String,
+		},
+		link: {
+			type: String,
+		},
 		user: {
 			type: mongoose.Types.ObjectId,
 			ref: 'user',

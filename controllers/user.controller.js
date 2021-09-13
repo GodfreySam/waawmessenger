@@ -1,12 +1,16 @@
 //  Models
+const Message = require('../models/Message');
 const User = require('../models/User');
-const auth = require('../middlewares/auth');
+const Campaign = require('../models/Campaign');
+const auth = require('../middlewares/authorizations');
 const passport = require('passport');
+const bcrypt = require('bcryptjs');
 const express = require('express');
+const { isLoggedIn } = require('../middlewares/authorizations');
 const router = express.Router();
 
-
-// User Registration
+// Router /user/register
+// renders user/register page
 router.get('/register', async (req, res) => {
 	try {
 		res.render('register');
@@ -15,6 +19,8 @@ router.get('/register', async (req, res) => {
 	}
 });
 
+// Router /user/register
+// handles /user/register form data submission
 router.post('/register', async (req, res) => {
 	try {
 		const { email, fullName, password, confirmPassword } = req.body;
@@ -54,20 +60,45 @@ router.post('/register', async (req, res) => {
 	}
 });
 
+// Router /user/login
+// renders user/login page
 router.get('/login', (req, res) => {
+
+	// if user is already logged in
+	if (req.user) return res.redirect('/user/profile');
+	
+	// if no user is logged in
 	res.render('login');
 });
 
-router.get('/profile', auth, (req, res) => {
-	res.render('profile');
+// Router /user/login
+// renders login page for onboarding user
+router.get('/', (req, res) => {
+	res.redirect('/user/login');
 });
 
+// Router /user/profile
+// renders /user/profile page
+router.get('/profile', isLoggedIn, async (req, res) => {
+	try {
+		let userCampaigns = await Campaign.find({ user: req.user._id }).populate('user');
+		res.render('profile', { userCampaigns });
+	} catch (err) {
+		console.log(err);
+	}
+});
+
+// Router /user/logout
+// renders /user/logout page after user is logged out 
 router.get('/logout', (req, res) => {
 	req.logout();
 	req.flash('success-message', 'User Logged out');
 	res.redirect('/user/login');
 });
 
+// Router /user/login
+// handles user login using passport controll password management
+// and user login 
 router.post(
 	'/login',
 	passport.authenticate('local', {
