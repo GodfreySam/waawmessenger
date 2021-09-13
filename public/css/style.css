@@ -37,3 +37,9 @@ body {
       width: 100%;
    }
 }
+
+/* Register Page Styles */
+.centerMe {
+   width: 65%;
+   margin: auto;
+}
