@@ -90,7 +90,7 @@
          <hr class="my-4">
          <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
          <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/campaign/create-campaign" role="button">Create Campaign</a>
+            <a class="btn btn-primary btn-lg" href="/campaign/create-campaign role="button">Create Campaign</a>
          </p>
       </div>
 <!-- End of jumbotron -->
@@ -101,12 +101,12 @@
 					 <div class="card">
 						<div class="card-header" id="headingThree">
 							<h2 class="mb-0">
-							<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#<%= campaign._id %>" aria-expanded="false" aria-controls="<%= campaign._id %>">
+							<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 								<%= campaign.title %>
 							</button>
 							</h2>
 						</div>
-						<div id="<%= campaign._id %>" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+						<div id="collapseTwo" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 							<div class="card-body">
 								<strong>
 									<%= campaign.link %>
