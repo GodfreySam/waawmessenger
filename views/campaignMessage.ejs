@@ -85,7 +85,7 @@
 
 		<div class="col-md-8 offset-md-2 msg-form">
 			<%- include('messages') -%>
-			<form class="mt-5" method="POST" action="/campaign/campaign-message">
+			<form class="mt-5" method="POST" action="/message/create-message/<%- singleCampaign._id %>">
 				<h3>Leave a message for: <%= singleCampaign.user.fullName %> </h3>
 				<div class="form-group">
 					<label for="anonymousMessage"><%= singleCampaign.title %></label>

@@ -68,40 +68,7 @@ router.post('/create-campaign', isLoggedIn, async (req, res) => {
 	}
 });
 
-// Router /campaign/campaign-message
-// handles campaign-message form data submission
-router.post('/campaign-message/:campaignId', async (req, res) => {
-let { message } = req.body;
-	
-	if (!message) {
-		req.flash('error-message', 'Please enter a message');
-		return res.redirect('/user/login');
-	}
 
-   let campaignExist = await Campaign.findOne({ _id: req.params.campaignId });
-
-   if (!campaignExist) {
-      req.flash('error-message', 'No such campaign found');
-      return res.redirect('back');
-   }
-
-   let newMessage = new Message({ message });
-
-	await newMessage
-		.save()
-		.then((message) => {
-         campaignExist.messages.push(message._id);
-         campaignExist.save();
-			req.flash('success-message', 'Message sent successfully');
-			res.redirect('back');
-		})
-		.catch((error) => {
-			if (error) {
-				req.flash('error-message', error.message);
-				res.redirect('/');
-			}
-      })
-});
 
 // Delete messages
 // router.get('/campaign-message/:campaignId', async (req, res) => {

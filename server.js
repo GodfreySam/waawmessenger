@@ -12,17 +12,8 @@ const passport = require('passport');
 const connectDB = require('./configs/db.config');
 // const { isLoggedIn } = require('./middlewares/authorizations');
 
-// Controllers
-const indexController = require('./controllers/index.controller');
-const userController = require('./controllers/user.controller');
-const messageController = require('./controllers/message.controller');
-const campaignController = require('./controllers/campaign.controller');
-
 //  Load environment configs
 dotenv.config({ path: "./configs/config.env" });
-
-// Passport config
-require('./configs/passport.config')(passport);
 
 // Middleware
 const auth = require('./middlewares/authorizations');
@@ -82,6 +73,12 @@ const port = process.env.PORT || 5000;
 
 // listen for server connections
 app.listen(port, () => console.log(`server running on port:: http://localhost:${port}`));
+
+// Controllers
+const indexController = require('./controllers/index.controller');
+const userController = require('./controllers/user.controller');
+const messageController = require('./controllers/message.controller');
+const campaignController = require('./controllers/campaign.controller');
 
 // Expose the routes using the controllers and router entry
 app.use('/', indexController);

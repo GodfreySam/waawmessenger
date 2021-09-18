@@ -9,6 +9,9 @@ const express = require('express');
 const { isLoggedIn } = require('../middlewares/authorizations');
 const router = express.Router();
 
+// Passport config
+require('../configs/passport.config')(passport);
+
 // Router /user/register
 // renders user/register page
 router.get('/register', async (req, res) => {

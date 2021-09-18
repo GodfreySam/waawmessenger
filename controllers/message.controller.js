@@ -1,36 +1,42 @@
 //  Models
-const Message = require('../models/Message');
+const Campaign = require("../models/Campaign");
+const Message = require("../models/Message");
 const express = require('express');
 const router = express.Router();
 
 // Router /message/create-message
-// handles message form data submission
-router.post('/create-message', async (req, res, next) => {
-	let { message } = req.body;
-	
+// handles create-message form data submission
+router.post('/create-message/:messageId', async (req, res) => {
+let { message } = req.body;
+	console.log(req.body);
 	if (!message) {
 		req.flash('error-message', 'Please enter a message');
-		return res.redirect('/');
+		return res.redirect('/user/login');
 	}
 
-	let newMessage = new Message({
-		message,
-	});
+   let campaignExist = await Campaign.findOne({ _id: req.params.messageId });
+
+   if (!campaignExist) {
+      req.flash('error-message', 'No such campaign found');
+      return res.redirect('back');
+   }
+
+   let newMessage = new Message({ message });
 
 	await newMessage
 		.save()
-		.then((data) => {
-			console.log('Message created successfully');
-
-			req.flash('success-message', 'Message created successfully');
-			res.redirect('/');
+		.then((message) => {
+         campaignExist.messages.push(message._id);
+         campaignExist.save();
+			req.flash('success-message', 'Message sent successfully');
+			res.redirect('back');
 		})
 		.catch((error) => {
 			if (error) {
 				req.flash('error-message', error.message);
 				res.redirect('/');
 			}
-		});
+      })
 });
 
 //  Delete Messages
