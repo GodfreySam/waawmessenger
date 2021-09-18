@@ -13,7 +13,7 @@ const connectDB = require('./configs/db.config');
 // const { isLoggedIn } = require('./middlewares/authorizations');
 
 // Controllers
-// const indexController = require('./controllers/index.controller');
+const indexController = require('./controllers/index.controller');
 const userController = require('./controllers/user.controller');
 const messageController = require('./controllers/message.controller');
 const campaignController = require('./controllers/campaign.controller');
@@ -84,7 +84,7 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`server running on port:: http://localhost:${port}`));
 
 // Expose the routes using the controllers and router entry
-// app.use('/', indexController);
+app.use('/', indexController);
 app.use('/user', userController);
 app.use('/message', messageController);
 app.use('/campaign', campaignController);

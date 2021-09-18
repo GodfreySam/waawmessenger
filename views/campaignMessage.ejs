@@ -76,7 +76,7 @@
 					</li>
                   <% } %>
 					<li class="nav-item">
-						<a class="nav-link" href="/create-campaign">Create Campaign</a>
+						<a class="nav-link" href="/campaign/create-campaign">Create Campaign</a>
 					</li>
 				</ul>
 			</div>
@@ -104,33 +104,6 @@
 		</div>
 		<!-- !End of create message form -->
 
-		<!-- <div class="message-holder mt-5">
-			<% messages.forEach(data => { %>
-
-			<div class="card my-2">
-				<div class="card-header">
-					Anonymous
-					<a href="/message/delete-message/:<%= data._id %>" class="close"
-						><span aria-hidden="true">&times;</span></a
-					>
-				</div>
-				<div class="card-body">
-					<blockquote class="blockquote mb-0">
-						<p><%- data.message %></p>
-						<footer class="blockquote-footer">
-							<small>
-								Created:
-								<cite title="Source Title">
-									<%- moment(data.createdAt).fromNow() %>
-								</cite>
-							</small>
-						</footer>
-					</blockquote>
-				</div>
-			</div>
-
-			<% }) %>
-		</div> -->
 
 		<!-- <script
 			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

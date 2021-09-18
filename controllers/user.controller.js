@@ -73,15 +73,15 @@ router.get('/login', (req, res) => {
 
 // Router /user/login
 // renders login page for onboarding user
-router.get('/', (req, res) => {
-	res.redirect('/user/login');
-});
+// router.get('/', (req, res) => {
+// 	res.redirect('/user/login');
+// });
 
 // Router /user/profile
 // renders /user/profile page
 router.get('/profile', isLoggedIn, async (req, res) => {
 	try {
-		let userCampaigns = await Campaign.find({ user: req.user._id }).populate('user');
+		let userCampaigns = await Campaign.find({ user: req.user }).populate('user messages');
 		res.render('profile', { userCampaigns });
 	} catch (err) {
 		console.log(err);
